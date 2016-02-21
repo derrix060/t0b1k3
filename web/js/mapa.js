@@ -52,7 +52,7 @@ function initialize() {
 		} else {
 			var novo_centro = place.geometry.location.novo_ponto(0,1);
 			map.setCenter(novo_centro);
-			map.setZoom(14);  // Why 14? Because it looks good.
+			map.setZoom(14);  //Why 14? Because it looks good.
 		}
 		marker.setIcon(/** @type {google.maps.Icon} */({
 		  url: place.icon,
@@ -159,28 +159,8 @@ function initialize() {
 	
 	//Botôes da Esquerda
 		google.maps.event.addDomListener(document.getElementById('findMe'),'click',function(){
-			if (!navigator.geolocation){
-				alert("Geolocation is not supported by your browser");
-			}
-			else{
-				function success(posicao){
-					var latitude  = position.coords.latitude;
-					var longitude = position.coords.longitude;
-					posicao_atual = new google.maps.LatLng(latitude, longitude);
-					map.setCenter(posicao_atual);
-					map.setZoom(15);
-					
-					infowindow.setContent("Estou aqui!");
-					infowindow.open(map, markerPosAtual);
-				};
-				
-				function error() {
-					alert("Unable to retrieve your location");
-				};
-				
-				
-				navigator.geolocation.getCurrentPosition(success, error);
-			}
+			map.setCenter(markerPosAtual.getPosition());
+			infowindow.open(map, markerPosAtual);
 		});
 		
 	//Search Menu
@@ -243,47 +223,53 @@ function initialize() {
 				submit_form();
 			});
 			});
-			
-	//Localizacao atual
-		if (!navigator.geolocation){
-			alert("Geolocation is not supported by your browser");
-		}
-		else{
-		  function success(position) {
-			var latitude  = position.coords.latitude;
-			var longitude = position.coords.longitude;
-			posicao_atual = new google.maps.LatLng(latitude, longitude);
-			map.setCenter(posicao_atual);
-			
-			
-			//Adicionar um marcador na posicao atual
-				markerPosAtual = new google.maps.Marker({
-					map: map,
-					icon: 'http://maps.google.com/mapfiles/ms/micons/cycling.png'
-				});
-				markerPosAtual.setPosition(posicao_atual);
-				markerPosAtual.setVisible(true);
-				
-				infowindow.setContent("Estou aqui!");
-				infowindow.open(map, markerPosAtual);
-			
-			var enderecoPartida = document.getElementById('txtEnderecoPartida');
-			enderecoPartida.value = posicao_atual;
-		  };
-
-		  function error() {
-			alert("Unable to retrieve your location");
-		  };
-
-		  alert("Locating…");
-
-		  navigator.geolocation.getCurrentPosition(success, error);
-		}
-
 	
+	//Marker com posicaoAtual
+		var markerPosAtual = new google.maps.Marker({
+			map: map,
+			icon: 'http://maps.google.com/mapfiles/ms/micons/cycling.png'
+		});
+	//Localizacao atual
+		currentPosition(map, infowindow, markerPosAtual);
+		
 	//Elevação
 	
 }
+
+//Localizacao atual
+function currentPosition(map, infowindow, markerPosAtual){
+	if (!navigator.geolocation){
+		alert("Geolocation is not supported by your browser");
+	}
+	else{
+	  function success(position) {
+		var latitude  = position.coords.latitude;
+		var longitude = position.coords.longitude;
+		var posicao_atual = new google.maps.LatLng(latitude, longitude);
+		map.setCenter(posicao_atual);
+		
+		
+		//Adicionar um marcador na posicao atual
+			markerPosAtual.setPosition(posicao_atual);
+			markerPosAtual.setVisible(true);
+			
+			infowindow.setContent("Estou aqui!");
+			infowindow.open(map, markerPosAtual);
+		
+		var enderecoPartida = document.getElementById('txtEnderecoPartida');
+		enderecoPartida.value = posicao_atual;
+	  };
+
+	  function error() {
+		alert("Unable to retrieve your location");
+	  };
+
+	  //alert("Locating…");
+
+	  navigator.geolocation.getCurrentPosition(success, error);
+	}
+}
+
 
 // Filter the map based on checkbox selection.
 function filterMap(layer, map) {

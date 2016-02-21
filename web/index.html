@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<!-- Ajuste do viewport - Mobile -->
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	
+	<!-- Título -->
+	<title>ToBike</title>
+	
+	<!-- Estilo -->
+	<link rel="stylesheet" href="estilo.css"/>
+
+	<!-- Botões personalizados -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+	
+	<!-- Maps API Javascript -->
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB5nAx_lxyFF3ZQHXd1PGf-PmGUzczDAU8&sensor=false&libraries=places"></script>
+	<!-- API Places
+	<script src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places"></script>
+	
+	
+	<!-- API - AIzaSyB62D6fHbHXLn2TtQZez04o5pIsGVaCD2g -->
+	<!-- Js API - AIzaSyB5nAx_lxyFF3ZQHXd1PGf-PmGUzczDAU8 -->
+</head>
+<body>
+	<!-- Mapa -->
+		<!-- Carregar o mapa -->
+		<div id="map_canvas">
+			<div class="google-maps"></div>
+		</div>
+		
+		<!-- Arquivo de inicialização do mapa -->
+		<script src="js/mapa.js"></script>
+		
+	<!-- Elementos dentro do mapa -->
+			
+		<!-- Menu -->
+			<nav id="menu">
+				<ul>
+					<li><a> <i class="fa fa-bars" title="Menu"></i> </a>
+						<ul class="centralizado">
+							<li><a href="sobre.html"><i class="fa fa-info-circle" title="Sobre"></i></a></li>
+							<li><a href="contribuir.html"><i class="fa fa-users" title="Contribuir"></i></a></li>
+							<li><a href="contato.html"><i class="fa fa-envelope-o" title="Contato"></i></a></li>
+							<!-- <li><a href="#"><i class="fa fa-bell-slash-o" title="Silenciar"></i></a></li> -->
+							<li><a href="report-bug.html"><i class="fa fa-bug" title="Reportar erro"></i></a></li>
+						</ul>
+					</li>
+					<li><a> <i class="fa fa-filter" title="Filtro"></i></a>
+						<ul>
+							<li><a><i class="fa fa-check-square" name="opcoes" id="ciclovia" value="Ciclovia"  title="Ciclovia"> Ciclovia</i></a></li>
+							<li><a><i class="fa fa-check-square" style="color:#8080ff"  name="opcoes" id="bicicletario" value="Bicicletario" title="Bicicletario"> Bicicletario</i></a></li>
+							<li><a><i class="fa fa-square" style="color:#33cc33"  name="opcoes" id="bomba" value="Bomba"  title="Bomba"> Bomba</i></a></li>
+							<li><a><i class="fa fa-square" style="color:#ff3333"  name="opcoes" id="oficina" value="Oficina"  title="Oficina"><b> Oficina</b></i></a></li>
+							<li><a><i class="fa fa-square" style="color:#dd99ff"  name="opcoes" id="chuveiro" value="Chuveiro"  title="Chuveiro"> Chuveiro</i></a></li>
+							<li><a><i class="fa fa-square" style="color:#ffff80"  name="opcoes" id="bikestore" value="BikeStore"  title="BikeStore"> BikeStore</i></a></li>
+						</ul>
+					</li>
+					<li><a> <i class="fa fa-search" title="Localizar"></i></a>
+						<ul>
+							<li><a><p><input type="text" id="txtEnderecoPartidaTxtBox" placeholder="Digite um local..." autocomplete="on"><i class="fa fa-search" id="searchMenu" title="Localizar"></p></a></i></li>
+							
+						</ul>
+					</li>
+				</ul>
+			</nav>
+			
+		<!-- Logo -->
+			<header id="logo">
+					<img src="imagens/logo_ta3.png" id="img_logo">
+			</header>
+			
+		<!-- FindMe -->
+		<div id="botoes_esquerda">
+			<li><i id ="findMe" class="fa fa-bicycle"></i></li>
+		</div>
+	
+	<!-- Teste geolocation
+	<p><button onclick="geoFindMe()">Show my location</button></p>
+	<div id="out"></div>
+	 -->
+	<!-- Teste do endereço de partida e de chegada -->
+	<fieldset>
+		<div>
+			<label for="txtEnderecoPartida">Endereço de partida:</label>
+			<br>
+			<input type="text" id="txtEnderecoPartida" name="txtEnderecoPartida" />
+		</div>
+
+		<div>
+			<label for="txtEnderecoChegada">Endereço de chegada:</label>
+			<br>
+			<input type="text" id="txtEnderecoChegada" name="txtEnderecoChegada" />
+		</div>
+
+		<div>
+			<input type="submit" id="btnEnviar" name="btnEnviar" value="Enviar" />
+		</div>
+	</fieldset>
+	
+	<!-- Trajeto -->
+	<div id="botoes_direction">
+	
+		<li><i id ="chevron_trajeto" class="fa fa-chevron-right"></i></li>
+		<li><i id ="times_direction" class="fa fa-times"></i></li>
+	</div>
+	<div id="trajeto-texto"></div>
+	
+	<!-- Elevação -->
+	<div id="elevation_chart"></div>
+</body>
+</html>

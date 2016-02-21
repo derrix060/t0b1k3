@@ -159,7 +159,9 @@ function initialize() {
 	
 	//Botôes da Esquerda
 		google.maps.event.addDomListener(document.getElementById('findMe'),'click',function(){
+			infowindow.close;
 			map.setCenter(markerPosAtual.getPosition());
+			infowindow.setContent("Estou aqui!");
 			infowindow.open(map, markerPosAtual);
 		});
 		
@@ -433,6 +435,7 @@ function go_click(){
 	var start = document.getElementById('txtEnderecoPartida').value;
 	var destino = document.getElementById('txtEnderecoChegada').value;
 	
+	
 	var request = {
 	  origin: start,
 	  destination: destino,
@@ -454,7 +457,6 @@ function submit_form(){
 	var enderecoChegada = document.getElementById('txtEnderecoChegada').value;
 	
 	
-	
 	var request = {
 		origin: enderecoPartida,
 		destination: enderecoChegada,
@@ -473,7 +475,8 @@ function submit_form(){
 			set_icon_chevron("fa fa-chevron-right");
 		}
 		else{
-			alert ('não foi possivel obter as direçõs');
+			alert ('não foi possivel obter as direçõs. Erro: ' + status);
+			
 		}
 	});
 }

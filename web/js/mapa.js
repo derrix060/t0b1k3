@@ -1,14 +1,13 @@
 var tableid = '167nrUQCIXT_hcpHvgxJeA9ENRv2Z4yKfxFTaQMeY';
 var googleid = 'AIzaSyB62D6fHbHXLn2TtQZez04o5pIsGVaCD2g';
-var directionsDisplay;
+var directionsDisplay = new google.maps.DirectionsRenderer();
 var directionsService = new google.maps.DirectionsService();
-var map;
 var posicao_atual;
 var markerPosAtual;
 
 function initialize() {
 	//Mapa
-		map = new google.maps.Map(
+		var map = new google.maps.Map(
 		document.getElementById("map_canvas"), {
 			fusionTableId: tableid,
 			//googleApiKey: googleid,
@@ -21,9 +20,10 @@ function initialize() {
 		});
 		
 	//Directions
-		directionsDisplay = new google.maps.DirectionsRenderer();
+		//directionsDisplay = new google.maps.DirectionsRenderer();
 		directionsDisplay.setMap(map);
 		directionsDisplay.setPanel(document.getElementById("trajeto-texto"));
+		
 		
 	//Searchbox Menu -> Autocomplete
 		var input = document.getElementById('txtEnderecoPartidaTxtBox');
@@ -178,7 +178,7 @@ function initialize() {
 	
 	//Infoview de quando clica no ponto
 		var infoWindow = new google.maps.InfoWindow();
-		google.maps.event.addListener(layer, 'click', function(e) {	
+		google.maps.event.addListener(layer, 'click', function(ponto) {	
 			//centro do mapa deslocado
 				//var novo_centro = e.latLng.novo_ponto(0,1);
 				//map.setCenter(novo_centro);
@@ -190,7 +190,7 @@ function initialize() {
 			var start = document.getElementById('txtEnderecoPartida').value;
 			
 			if (start == ""){
-				infoWindow.setContent('<div class="cb-infowindow" ' +e.infoWindowHtml +
+				infoWindow.setContent('<div class="cb-infowindow" ' +ponto.infoWindowHtml +
 				  '</div><br><p><i><label>Rota até aqui:</label></p></i> ' +
 				  '<input type="text" id="txtEnderecoPartidaInfoView">' +
 				  '<input type="button" value="go" id="go">');
@@ -198,12 +198,12 @@ function initialize() {
 				
 			}
 			else{
-				infoWindow.setContent('<div class="cb-infowindow" ' +e.infoWindowHtml +
+				infoWindow.setContent('<div class="cb-infowindow" ' +ponto.infoWindowHtml +
 				  '</div><br><p><i><label>Rota até aqui:</label></p></i> ' +
 				  //'<input type="text" id="txtEnderecoPartidaInfoView">' +
 				  '<input type="button" value="go" id="go">');
 			}
-			infoWindow.setPosition(e.latLng);
+			infoWindow.setPosition(ponto.latLng);
 			infoWindow.open(map);
 			
 			//autocomplete no infoview
@@ -221,7 +221,7 @@ function initialize() {
 				if(inputInfo){
 					document.getElementById('txtEnderecoPartida').value = inputInfo.value
 				}
-				document.getElementById('txtEnderecoChegada').value = e.latLng
+				document.getElementById('txtEnderecoChegada').value = ponto.latLng
 				submit_form();
 			});
 			});
@@ -458,14 +458,19 @@ function submit_form(){
 	
 	
 	var request = {
-		origin: enderecoPartida,
-		destination: enderecoChegada,
+		//origin: enderecoPartida,
+		//destination: enderecoChegada,
+		origin: 'av nazare sao paulo',
+		destination: 'rua da consolacao sao paulo',
 		travelMode: google.maps.TravelMode.BICYCLING //por bike
 	};
 	
+	//alert ('Partida: ' + enderecoPartida);
+	//alert ('Chegada: ' + enderecoChegada);
+	
 	directionsService.route(request, function(result, status) {
 		if (status == google.maps.DirectionsStatus.OK) {
-			directionsDisplay.setMap(map);
+			//directionsDisplay.setMap(map);
 			directionsDisplay.setDirections(result);
 			
 			//mostrar menu Direction

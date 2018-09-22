@@ -1,5 +1,4 @@
 var tableid = '167nrUQCIXT_hcpHvgxJeA9ENRv2Z4yKfxFTaQMeY';
-var googleid = 'AIzaSyB62D6fHbHXLn2TtQZez04o5pIsGVaCD2g';
 var directionsDisplay = new google.maps.DirectionsRenderer();
 var directionsService = new google.maps.DirectionsService();
 var posicao_atual;
